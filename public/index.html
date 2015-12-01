@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>WDiBreakdown</title>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script type="text/javascript" src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/demo.css" />
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
+    <link rel="stylesheet" type="text/css" href="css/elastislide.css" />
+    <script id="img-wrapper-tmpl" type="text/x-jquery-tmpl">
+      <div class="rg-image-wrapper">
+        {{if itemsCount > 1}}
+          <div class="rg-image-nav">
+            <a href="#" class="rg-image-nav-prev">Previous Image</a>
+            <a href="#" class="rg-image-nav-next">Next Image</a>
+          </div>
+        {{/if}}
+        <div class="rg-image"></div>
+        <div class="rg-loading"></div>
+        <div class="rg-caption-wrapper">
+          <div class="rg-caption" style="display:none;">
+            <p></p>
+          </div>
+        </div>
+      </div>
+    </script>
+  </head>
+  <body>
+    <div id="rg-gallery" class="rg-gallery">
+    	<div class="rg-thumbs">
+    		<!-- Elastislide Carousel Thumbnail Viewer -->
+    		<div class="es-carousel-wrapper">
+    			<div class="es-nav">
+    				<span class="es-nav-prev">Previous</span>
+    				<span class="es-nav-next">Next</span>
+    			</div>
+    			<div class="es-carousel">
+    				<ul class="carousel-list">
+    					<li><a href="#"><img src="img/IMG_8689.JPG" data-large="img/IMG_8689.JPG" alt="image01" data-description="JIMMY" /></a></li>
+    					<li><a href="#"><img src="img/IMG_8707.JPG" data-large="img/IMG_8707.JPG" alt="image01" data-description="VERONICA" /></a></li>
+    				</ul>
+    			</div>
+    		</div>
+    		<!-- End Elastislide Carousel Thumbnail Viewer -->
+    	</div><!-- rg-thumbs -->
+    </div><!-- rg-gallery -->
+    <div id="info"></div>
+    <script type="text/javascript" src="js/jquery.tmpl.min.js"></script>
+    <script type="text/javascript" src="js/jquery.easing.1.3.js"></script>
+    <script type="text/javascript" src="js/jquery.elastislide.js"></script>
+    <script type="text/javascript" src="js/gallery.js"></script>
+    <script type="text/javascript">
+      $('ul.carousel-list > li').on('click', function(){
+        console.log('click')
+        $.ajax({
+          url: "/api/image/IMG_8689.JPG",
+          method: "GET",
+          success: function(data){
+            console.log(data)
+            var attributes = '<ul><li> AGE = ' + data.face[0].attribute.age.value + '</li></ul>'
+            $('#info').html(attributes)
+          }
+        })
+      })
+    </script>
+  </body>
+</html>
